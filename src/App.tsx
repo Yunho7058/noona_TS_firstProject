@@ -1,11 +1,7 @@
 import React, { Suspense } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import { Route, Routes } from "react-router";
 import LoadingSpinner from "./common/components/util/LoadingSpinner";
-// import { AppLayout } from "./layout/AppLayout";
-// import { HomPage } from "./pages/HomPage/HomPage";
-// import { SearchPage } from "./pages/SearchPage/SearchPage";
 
 /*
 1. 홈 /
@@ -33,7 +29,7 @@ const PlaylistPage = React.lazy(
   () => import("./pages/PlaylistPage/PlaylistPage")
 );
 const PlaylistDetailPage = React.lazy(
-  () => import("./pages/PlaylistDetailPage/PlaylistDetailPage")
+  () => import("./pages/PlaylistPage/PlaylistDetailPage/PlaylistDetailPage")
 );
 
 function App() {
