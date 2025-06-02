@@ -20,7 +20,7 @@ import LoadingSpinner from "./common/components/util/LoadingSpinner";
 <Suspense> 아직안왔으면 로딩 보여줄게
  */
 const AppLayout = React.lazy(() => import("./layout/AppLayout"));
-const HomPage = React.lazy(() => import("./pages/HomPage/HomPage"));
+const HomePage = React.lazy(() => import("./pages/HomePage/HomePage"));
 const SearchPage = React.lazy(() => import("./pages/SearchPage/SearchPage"));
 const SearchPageWithPage = React.lazy(
   () => import("./pages/SearchWithPage/SearchWithPage")
@@ -38,7 +38,7 @@ function App() {
       <Suspense fallback={<LoadingSpinner />}>
         <Routes>
           <Route path="/" element={<AppLayout />}>
-            <Route index element={<HomPage />} />
+            <Route index element={<HomePage />} />
             <Route path="search" element={<SearchPage />} />
             <Route path="search/:keyword" element={<SearchPageWithPage />} />
             <Route path="playlist/:id" element={<PlaylistDetailPage />} />
