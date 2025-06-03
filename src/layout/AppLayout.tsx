@@ -46,6 +46,9 @@ const NavList = styled("ul")({
   listStyle: "none",
   padding: "0px",
   margin: "0px",
+  display: "flex",
+  flexDirection: "column",
+  gap: "15px",
 });
 
 interface StyledNavLinkProps extends NavLinkProps {
@@ -60,6 +63,7 @@ const StyledNavLink = styled(NavLink, {
   display: "flex",
   alignItems: "center",
   gap: "20px",
+  width: "40%",
   color:
     to === currentPath
       ? theme.palette.text.primary
