@@ -21,7 +21,7 @@ const EmptyPlaylist = () => {
         <Typography sx={{ fontWeight: "bold", fontSize: "18px" }}>
           Create your first playlist
           <Typography sx={{ fontSize: "14px" }}>
-            It's easy, we'll help yo
+            It's easy, we'll help you
           </Typography>
         </Typography>
       </div>
