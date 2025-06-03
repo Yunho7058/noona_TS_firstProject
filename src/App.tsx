@@ -42,7 +42,7 @@ function App() {
             <Route path="search" element={<SearchPage />} />
             <Route path="search/:keyword" element={<SearchPageWithPage />} />
             <Route path="playlist/:id" element={<PlaylistDetailPage />} />
-            <Route path="/playlist" element={<PlaylistPage />} />
+            <Route path="playlist" element={<PlaylistPage />} />
           </Route>
           {/* <Route path="/admin"/> */}
         </Routes>
