@@ -12,6 +12,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import LibraryHead from "./components/LibraryHead";
 import EmptyPlaylist from "./components/EmptyPlaylist";
 import Library from "./components/Library";
+import Navbar from "./components/Navbar";
 
 // <Outlet /> 라우터 아래있는 라우트 다 가져옴
 
@@ -34,7 +35,7 @@ const ContentBox = styled(Box)(({ theme }) => ({
   borderRadius: "8px",
   backgroundColor: theme.palette.background.paper,
   color: theme.palette.text.primary,
-  width: "100%",
+  width: "90%",
   padding: "8px",
   marginBottom: "8px",
   marginRight: "8px",
@@ -80,7 +81,7 @@ const StyledNavLink = styled(NavLink, {
 const AppLayout = () => {
   const location = useLocation();
   const currentPath = location?.pathname;
-  console.log(currentPath);
+  //console.log(currentPath);
   return (
     <Layout>
       <Sidebar>
@@ -105,7 +106,10 @@ const AppLayout = () => {
           <Library />
         </ContentBox>
       </Sidebar>
-      <Outlet />
+      <ContentBox>
+        <Navbar />
+        <Outlet />
+      </ContentBox>
     </Layout>
   );
 };
