@@ -8,7 +8,7 @@ import Card from "../../../common/components/Card";
 
 const NewReleases = () => {
   const { data, error, isLoading } = useGetNewReleases();
-  console.log(data, error, isLoading);
+
   if (isLoading) {
     return <LoadingSpinner />;
   }
@@ -22,6 +22,7 @@ const NewReleases = () => {
         display={"flex"}
         justifyContent={"flex-start"}
         alignItems={"center"}
+        marginBottom={"15px"}
       >
         NewReleases Albums
       </Typography>
