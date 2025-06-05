@@ -12,6 +12,9 @@ const PlayButtonContainer = styled("button")(({ theme }) => ({
   justifyContent: "center",
   cursor: "pointer",
   boxShadow: "rgba(0, 0, 0, 0.3) 0px 8px 8px 0px",
+  // position: "absolute",
+  // top: "5px",
+  // left: "5px",
   "&:focus": {
     outline: "none",
   },
