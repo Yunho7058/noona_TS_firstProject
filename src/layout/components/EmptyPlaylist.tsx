@@ -18,7 +18,10 @@ const EmptyPlaylist = () => {
   return (
     <ContentBox>
       <div>
-        <Typography sx={{ fontWeight: "bold", fontSize: "18px" }}>
+        <Typography
+          sx={{ fontWeight: "bold", fontSize: "18px" }}
+          component="div"
+        >
           Create your first playlist
           <Typography sx={{ fontSize: "14px" }}>
             It's easy, we'll help you
