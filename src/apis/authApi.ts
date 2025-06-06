@@ -2,7 +2,7 @@
 
 import axios from "axios";
 // import { URLSearchParams } from "url"; Node.js 방식
-import { clientId, clientSecret } from "../configs/authConfig";
+import { CLIENT_SECRET, CLIENT_ID } from "../configs/authConfig";
 import { TClientCredentialTokenResponse } from "../model/auth";
 
 const encodeBase64 = (data: string): string => {
@@ -27,7 +27,7 @@ export const getClientCredentialToken =
         {
           headers: {
             Authorization: `Basic ${encodeBase64(
-              clientId + ":" + clientSecret
+              CLIENT_ID + ":" + CLIENT_SECRET
             )}`,
             "Content-Type": "application/x-www-form-urlencoded",
           },
