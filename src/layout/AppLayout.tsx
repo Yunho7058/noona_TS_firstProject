@@ -20,6 +20,7 @@ const Layout = styled("div")({
   display: "flex",
   height: "100vh",
   padding: "8px",
+  gap: "15px",
 });
 // 브레이크 포인트 -> 직접 설정 또는 theme 사용하기
 const Sidebar = styled("div")(({ theme }) => ({
@@ -35,7 +36,7 @@ const ContentBox = styled(Box)(({ theme }) => ({
   borderRadius: "8px",
   backgroundColor: theme.palette.background.paper,
   color: theme.palette.text.primary,
-  width: "90%",
+  width: "100%",
   padding: "8px",
   marginBottom: "8px",
   marginRight: "8px",
