@@ -16,12 +16,15 @@ import Navbar from "./components/Navbar";
 
 // <Outlet /> 라우터 아래있는 라우트 다 가져옴
 
-const Layout = styled("div")({
+const Layout = styled("div")(({ theme }) => ({
   display: "flex",
   height: "100vh",
   padding: "8px",
-  gap: "15px",
-});
+  gap: "10px",
+  [theme.breakpoints.down("sm")]: {
+    flexDirection: "column",
+  },
+}));
 // 브레이크 포인트 -> 직접 설정 또는 theme 사용하기
 const Sidebar = styled("div")(({ theme }) => ({
   width: "331px",
