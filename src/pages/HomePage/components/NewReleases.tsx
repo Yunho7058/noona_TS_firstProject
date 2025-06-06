@@ -16,7 +16,7 @@ const NewReleases = () => {
     return <ErrorMessage errorMessage={error.message} />;
   }
   return (
-    <div>
+    <>
       <Typography
         variant={"h1"}
         display={"flex"}
@@ -40,7 +40,7 @@ const NewReleases = () => {
       ) : (
         <Typography variant={"h2"}>No Data</Typography>
       )}
-    </div>
+    </>
   );
 };
 

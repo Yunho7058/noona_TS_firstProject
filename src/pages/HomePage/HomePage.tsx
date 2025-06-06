@@ -2,11 +2,7 @@ import React from "react";
 import NewReleases from "./components/NewReleases";
 
 const HomePage = () => {
-  return (
-    <div>
-      <NewReleases />
-    </div>
-  );
+  return <NewReleases />;
 };
 
 export default HomePage;
