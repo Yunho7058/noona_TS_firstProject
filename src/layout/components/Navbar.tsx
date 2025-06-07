@@ -3,9 +3,10 @@ import React from "react";
 import LoginButton from "../../common/components/LoginButton";
 import useGetUserProfile from "../../hooks/useGetUserProfile";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import LoadingSpinner from "../../common/components/util/LoadingSpinner";
 
 const Navbar = () => {
-  const { data: userProfile } = useGetUserProfile();
+  const { data: userProfile, isLoading } = useGetUserProfile();
   console.log(userProfile);
   return (
     <Box
@@ -14,7 +15,9 @@ const Navbar = () => {
       alignItems={"center"}
       height={"64px"}
     >
-      {userProfile ? (
+      {isLoading ? (
+        <LoadingSpinner />
+      ) : userProfile ? (
         userProfile.images[0] ? (
           <Avatar
             src={userProfile.images[0].url}
