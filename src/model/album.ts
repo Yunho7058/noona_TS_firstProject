@@ -1,17 +1,10 @@
 import { S } from "react-router/dist/development/register-BkDIKxVz";
 import { TExternalUrls, TImage, TRestrictions } from "./commonType";
 import { TArtist } from "./artist";
+import { TApitResponse } from "./apiResponse";
 
 export interface TGetNewReleasesResponse {
-  albums: {
-    href: string;
-    limit: number;
-    next: string;
-    offset: number;
-    previous: string | null;
-    total: number;
-    items: TSimplifiedAlbum[];
-  };
+  albums: TApitResponse<TSimplifiedAlbum>;
 }
 
 export interface TSimplifiedAlbum {

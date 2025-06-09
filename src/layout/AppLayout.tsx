@@ -81,6 +81,26 @@ const StyledNavLink = styled(NavLink, {
     color: theme.palette.text.primary,
   },
 }));
+const ScrollContainer = styled(ContentBox)({
+  height: "100%",
+  overflowY: "auto",
+  scrollBehavior: "smooth",
+
+  /* 스크롤바 커스터마이징 */
+  "&::-webkit-scrollbar": {
+    width: "6px",
+  },
+  "&::-webkit-scrollbar-thumb": {
+    backgroundColor: "#888",
+    borderRadius: "10px",
+  },
+  "&::-webkit-scrollbar-thumb:hover": {
+    backgroundColor: "#555",
+  },
+  "&::-webkit-scrollbar-track": {
+    backgroundColor: "transparent",
+  },
+});
 // home, search 클릭후 그 페이지에 있으면 , 버튼 흰색 유지하기
 const AppLayout = () => {
   const location = useLocation();
@@ -105,10 +125,12 @@ const AppLayout = () => {
             </StyledNavLink>
           </NavList>
         </ContentBox>
-        <ContentBox sx={{ height: "100vh" }}>
+        <ScrollContainer
+          sx={{ height: "100%", overflow: "auto", scrollBehavior: "" }}
+        >
           <LibraryHead />
           <Library />
-        </ContentBox>
+        </ScrollContainer>
       </Sidebar>
       <ContentBox>
         <Navbar />

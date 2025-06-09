@@ -40,7 +40,9 @@ function App() {
   let code = urlParams.get("code");
   let { mutate: exchangToken } = useExchangeToken();
   useEffect(() => {
-    if (code && codeVerifier) {
+    const alreadyExchanged = localStorage.getItem("access_token");
+
+    if (code && codeVerifier && !alreadyExchanged) {
       exchangToken({ code, codeVerifier });
     }
   }, [code, codeVerifier, exchangToken]);
