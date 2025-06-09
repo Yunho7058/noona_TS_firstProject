@@ -7,7 +7,7 @@ import LoadingSpinner from "../../common/components/util/LoadingSpinner";
 
 const Navbar = () => {
   const { data: userProfile, isLoading } = useGetUserProfile();
-  console.log(userProfile);
+
   return (
     <Box
       display={"flex"}
