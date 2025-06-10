@@ -2,6 +2,7 @@ import { Box, ImageList, ImageListItem, styled } from "@mui/material";
 import React from "react";
 import { TSimplifiedPlaylist } from "../../model/playlist";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
+import MusicNoteIcon from "@mui/icons-material/MusicNote";
 
 const ContentBox = styled(Box)(({ theme }) => ({
   borderRadius: "8px",
@@ -29,6 +30,14 @@ const StyledImage = styled("img")(({ theme }) => ({
   objectFit: "cover",
   flexShrink: 0, // 이미지 크기 줄어들지 않게
 }));
+const StlyedIconBox = styled(Box)(({ theme }) => ({
+  width: "30%", // 너비
+  height: "60px", // 정사각형 이미지
+  borderRadius: "4px",
+  objectFit: "cover",
+  flexShrink: 0, // 이미지 크기 줄어들지 않게
+  backgroundColor: theme.palette.background.default,
+}));
 const InfoBox = styled(Box)({
   flex: 1, // 나머지 공간 차지
   display: "flex",
@@ -38,7 +47,7 @@ const InfoBox = styled(Box)({
 const IconStyle = styled(PlayCircleIcon)({
   position: "absolute",
   top: "50%",
-  left: "16%",
+  left: "19%",
   transform: "translate(-50%, -50%)",
   fontSize: "48px",
   color: "white",
@@ -47,21 +56,32 @@ const IconStyle = styled(PlayCircleIcon)({
   pointerEvents: "none",
 });
 //playlist.
-const Playlists = ({
+const PlaylistItem = ({
   currentUserPlaylists,
+  handleClick,
 }: {
   currentUserPlaylists: TSimplifiedPlaylist[];
+  handleClick: (id: string) => void;
 }) => {
   // console.log("여기", currentUserPlaylists);
   return (
     <>
       {currentUserPlaylists.map((playlist) => {
         return (
-          <ContentBox key={playlist.id}>
+          <ContentBox
+            onClick={() => playlist.id && handleClick(playlist.id)}
+            key={playlist.id}
+          >
             {playlist?.images?.[0]?.url ? (
               <StyledImage src={playlist?.images[0].url} />
             ) : (
-              <>사진없음</>
+              <StlyedIconBox
+                display={"flex"}
+                alignItems={"center"}
+                justifyContent={"center"}
+              >
+                <MusicNoteIcon />
+              </StlyedIconBox>
             )}
             <IconStyle className="playIcon" />
             <InfoBox>
@@ -79,4 +99,4 @@ const Playlists = ({
   );
 };
 
-export default Playlists;
+export default PlaylistItem;

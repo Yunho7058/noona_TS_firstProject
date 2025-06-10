@@ -1,27 +1,71 @@
 import React from "react";
-import { useGetPlaylist } from "../../../hooks/useGetPlaylist";
-import { Navigate, useParams } from "react-router";
+import { TPlaylistResponse } from "../../../../model/playlist";
+import { Box, styled, Typography } from "@mui/material";
 import MusicNoteIcon from "@mui/icons-material/MusicNote";
-import PlaylistHeader from "./components/PlaylistHeader";
 
-const PlaylistDetailPage = () => {
-  const { id } = useParams<{ id: string }>();
-  if (id === undefined) {
-    return <Navigate to={"/"} />;
-  }
-  const { data: playlist } = useGetPlaylist({ playlist_id: id });
-  //console.log(playlist);
+const ContentBox = styled(Box)(({ theme }) => ({
+  borderRadius: "8px",
+  backgroundColor: theme.palette.background.default,
+  color: theme.palette.text.primary,
+  width: "100%",
+  padding: "25px",
+  display: "flex",
+  height: "200px",
+  flexDirection: "row",
+  gap: "1px",
+}));
+const StyledImage = styled("img")(({ theme }) => ({
+  height: "100%",
+  borderRadius: "4px",
+  objectFit: "cover",
+  //flexShrink: 0,
+  flex: 0.3,
+}));
+const StlyedIconBox = styled(Box)(({ theme }) => ({
+  flex: 0.3,
+  height: "100%",
+  borderRadius: "4px",
+  objectFit: "cover",
+  //   flexShrink: 0,
+  backgroundColor: theme.palette.background.paper,
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+}));
+const InfoBox = styled(Box)({
+  flex: 1,
+  width: "100%",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+});
+// const IconStyle = styled(MusicNoteIcon)({
 
-  // 사진, 노래 제목, 가수 이름 // 없으면 기본 이미지 -> MusicNoteIcon 보여주기
+// });
+
+const PlaylistHeader = ({ playlist }: { playlist: TPlaylistResponse }) => {
   return (
-    <div>
-      {playlist && <PlaylistHeader playlist={playlist} />}
-      <div>리스트</div>
-    </div>
+    <ContentBox>
+      {playlist.images ? (
+        <StyledImage src={playlist.images[0].url} />
+      ) : (
+        <StlyedIconBox>
+          <MusicNoteIcon />
+        </StlyedIconBox>
+      )}
+      <InfoBox>
+        <Typography sx={{ fontWeight: "bold", fontSize: "2rem" }}>
+          {playlist.name}
+        </Typography>
+        <Typography sx={{ color: "#b3b3b3", fontSize: "1rem" }}>
+          {playlist.owner.display_name} • {playlist.tracks.total} songs
+        </Typography>
+      </InfoBox>
+    </ContentBox>
   );
 };
 
-export default PlaylistDetailPage;
+export default PlaylistHeader;
 
 /*
 import { Box, ImageList, ImageListItem, styled } from "@mui/material";
