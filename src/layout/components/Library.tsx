@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
-import EmptyPlaylist from "./EmptyPlaylist";
-import useGetCurrentUserPlaylist from "../../hooks/useGetCurrentUserPlaylist";
-import LoadingSpinner from "../../common/components/util/LoadingSpinner";
-import Playlists from "./Playlists";
 import { Box, styled } from "@mui/material";
 import { useInView } from "react-intersection-observer";
+
+import EmptyPlaylist from "./EmptyPlaylist";
+import Playlists from "./Playlists";
+import LoadingSpinner from "../../common/components/util/LoadingSpinner";
+import useGetCurrentUserPlaylist from "../../hooks/useGetCurrentUserPlaylist";
 
 const ContentBox = styled(Box)({
   display: "flex",
@@ -14,7 +15,7 @@ const ContentBox = styled(Box)({
 });
 
 const Library = () => {
-  const { ref, inView } = useInView();
+  const { ref, inView } = useInView({ threshold: 0 });
 
   const {
     data,
@@ -23,19 +24,20 @@ const Library = () => {
     hasNextPage,
     isFetchingNextPage,
     fetchNextPage,
-  } = useGetCurrentUserPlaylist({
-    limit: 10,
-    offset: 0,
-  });
+  } = useGetCurrentUserPlaylist();
+
   useEffect(() => {
+    console.log("inView:", inView);
+    console.log("hasNextPage:", hasNextPage);
+    console.log("isFetchingNextPage:", isFetchingNextPage);
+    console.log("data:", data);
     if (inView && hasNextPage && !isFetchingNextPage) {
-      // 함수 호출
       fetchNextPage();
     }
   }, [inView]);
 
-  // console.log("리스트", data, isLoading, inView);
-  const shouldShowEmpty = error || !data?.pages[0].total;
+  const shouldShowEmpty = error || !data?.pages[0]?.total;
+
   return (
     <ContentBox>
       {isLoading ? (
@@ -44,10 +46,16 @@ const Library = () => {
         <EmptyPlaylist />
       ) : (
         <>
-          {data?.pages.map((page, idx) => (
-            <Playlists currentUserPlaylists={page.items} key={idx} />
+          {data.pages.map((page, idx) => (
+            <Playlists key={idx} currentUserPlaylists={page.items} />
           ))}
-          <div ref={ref}>{isFetchingNextPage && <LoadingSpinner />}</div>
+          <div ref={ref} style={{ height: "1px" }}>
+            {isFetchingNextPage ? (
+              <LoadingSpinner />
+            ) : (
+              hasNextPage && <LoadingSpinner />
+            )}
+          </div>
         </>
       )}
     </ContentBox>
