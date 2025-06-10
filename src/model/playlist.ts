@@ -1,5 +1,5 @@
 import { TApitResponse } from "./apiResponse";
-import { TExternalUrls, TImage, TOwner } from "./commonType";
+import { TExternalUrls, TFollowers, TImage, TOwner } from "./commonType";
 
 export interface TGetCurrentUserPlaylistRequest {
   limit?: number;
@@ -9,23 +9,53 @@ export interface TGetCurrentUserPlaylistRequest {
 export type TGetCurrentUserPlaylistResponse =
   TApitResponse<TSimplifiedPlaylist>;
 
-export interface TSimplifiedPlaylist {
-  collaborative?: boolean;
-  description?: string;
+export interface TBasePlaylist {
+  collaborative: boolean;
+  description: string | null;
   external_urls?: TExternalUrls;
-  href?: string;
-  id?: string;
+  href: string;
+  id: string;
   images?: TImage[];
-  name?: string;
+  name: string;
   owner: TOwner;
-  public?: boolean;
-  snapshot_id?: string;
+  public: boolean | null;
+  snapshot_id: string;
+  type: "playlist";
+  uri: string;
+}
+
+export interface TSimplifiedPlaylist extends TBasePlaylist {
   tracks?: {
     href?: string;
     total?: number;
   };
-  type?: string;
-  uri?: string;
+}
+
+export interface TPlaylistResponse extends TBasePlaylist {
+  tracks: TApitResponse<TPlaylistTrackObject>;
+  folowers: TFollowers;
+}
+
+export interface TPlaylistTrackObject {
+  added_at: string | null;
+  added_by: TUserObject | null;
+  is_local: boolean;
+  track: null;
+}
+
+export interface TUserObject {
+  external_urls: TExternalUrls;
+  href: string;
+  id: string;
+  type: "user";
+  uri: string;
+  display_name: string | null;
+}
+export interface TGetPlaylistRequest {
+  playlist_id: string;
+  market?: string;
+  fields?: string;
+  additional_types?: string;
 }
 
 /*

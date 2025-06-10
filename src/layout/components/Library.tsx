@@ -3,9 +3,11 @@ import { Box, styled } from "@mui/material";
 import { useInView } from "react-intersection-observer";
 
 import EmptyPlaylist from "./EmptyPlaylist";
-import Playlists from "./Playlists";
+import Playlists from "../../common/components/PlaylistItem";
 import LoadingSpinner from "../../common/components/util/LoadingSpinner";
 import useGetCurrentUserPlaylist from "../../hooks/useGetCurrentUserPlaylist";
+import PlaylistItem from "../../common/components/PlaylistItem";
+import { useNavigate } from "react-router";
 
 const ContentBox = styled(Box)({
   display: "flex",
@@ -38,6 +40,11 @@ const Library = () => {
 
   const shouldShowEmpty = error || !data?.pages[0]?.total;
 
+  const navigate = useNavigate();
+  const handleClick = (id: string) => {
+    navigate(`playlist/${id}`);
+  };
+
   return (
     <ContentBox>
       {isLoading ? (
@@ -47,7 +54,11 @@ const Library = () => {
       ) : (
         <>
           {data.pages.map((page, idx) => (
-            <Playlists key={idx} currentUserPlaylists={page.items} />
+            <PlaylistItem
+              key={idx}
+              currentUserPlaylists={page.items}
+              handleClick={handleClick}
+            />
           ))}
           <div ref={ref} style={{ height: "1px" }}>
             {isFetchingNextPage ? (
