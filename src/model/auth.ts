@@ -11,6 +11,7 @@ export interface TAuthUrlParams {
   code_challenge_method: "S256";
   code_challenge: string;
   redirect_uri: string;
+  show_dialog: boolean;
 }
 
 export interface TExchangTokenResponse {

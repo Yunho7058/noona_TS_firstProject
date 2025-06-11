@@ -8,21 +8,23 @@ const ContentBox = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.background.default,
   color: theme.palette.text.primary,
   width: "100%",
-  padding: "25px",
+  padding: "15px",
   display: "flex",
-  height: "200px",
+  height: "230px",
   flexDirection: "row",
-  gap: "1px",
+  gap: "15px",
+  overflow: "hidden",
 }));
 const StyledImage = styled("img")(({ theme }) => ({
   height: "100%",
+  width: "150px",
   borderRadius: "4px",
   objectFit: "cover",
   //flexShrink: 0,
-  flex: 0.3,
+  flex: 1,
 }));
 const StlyedIconBox = styled(Box)(({ theme }) => ({
-  flex: 0.3,
+  flex: 1,
   height: "100%",
   borderRadius: "4px",
   objectFit: "cover",
@@ -33,11 +35,13 @@ const StlyedIconBox = styled(Box)(({ theme }) => ({
   justifyContent: "center",
 }));
 const InfoBox = styled(Box)({
-  flex: 1,
+  flex: 3,
   width: "100%",
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
+  alignItems: "flex-start",
+  gap: 2,
 });
 // const IconStyle = styled(MusicNoteIcon)({
 

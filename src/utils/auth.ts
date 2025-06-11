@@ -7,12 +7,11 @@ export const getSpotifyAuthUrl = async () => {
   const codeVerifier = generateRandomString(64);
   const hashed = await sha256(codeVerifier);
   const codeChallenge = base64encode(hashed);
-
+  // alert("로그인");
   const clientId = CLIENT_ID;
   const redirectUri = REDIRECT_URI;
 
   const scope = SCOPES;
-  window.localStorage.setItem("code_verifier", codeVerifier);
   const authUrl = new URL("https://accounts.spotify.com/authorize");
 
   if (clientId && redirectUri) {
@@ -23,8 +22,10 @@ export const getSpotifyAuthUrl = async () => {
       code_challenge_method: "S256",
       code_challenge: codeChallenge,
       redirect_uri: redirectUri,
+      show_dialog: true,
     };
     authUrl.search = new URLSearchParams(Object.entries(params)).toString();
     window.location.href = authUrl.toString();
+    window.localStorage.setItem("code_verifier", codeVerifier);
   }
 };

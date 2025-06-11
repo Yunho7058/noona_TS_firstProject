@@ -3,6 +3,9 @@ import { useGetPlaylist } from "../../../hooks/useGetPlaylist";
 import { Navigate, useParams } from "react-router";
 import MusicNoteIcon from "@mui/icons-material/MusicNote";
 import PlaylistHeader from "./components/PlaylistHeader";
+import useGetPlaylistItems from "../../../hooks/useGetPlaylistItems";
+import PlaylistItems from "./components/PlaylistItems";
+import { Typography } from "@mui/material";
 
 const PlaylistDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -10,13 +13,16 @@ const PlaylistDetailPage = () => {
     return <Navigate to={"/"} />;
   }
   const { data: playlist } = useGetPlaylist({ playlist_id: id });
-  //console.log(playlist);
 
   // 사진, 노래 제목, 가수 이름 // 없으면 기본 이미지 -> MusicNoteIcon 보여주기
   return (
     <div>
       {playlist && <PlaylistHeader playlist={playlist} />}
-      <div>리스트</div>
+      {playlist?.tracks?.total === 0 ? (
+        <Typography>검색</Typography>
+      ) : (
+        <PlaylistItems paramsId={id} />
+      )}
     </div>
   );
 };
