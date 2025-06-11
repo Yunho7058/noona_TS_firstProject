@@ -4,7 +4,6 @@ import { TAuthUrlParams } from "../model/auth";
 import { base64encode, generateRandomString, sha256 } from "./crypto";
 
 export const getSpotifyAuthUrl = async () => {
-  //
   const codeVerifier = generateRandomString(64);
   const hashed = await sha256(codeVerifier);
   const codeChallenge = base64encode(hashed);
@@ -13,9 +12,8 @@ export const getSpotifyAuthUrl = async () => {
   const redirectUri = REDIRECT_URI;
 
   const scope = SCOPES;
-  const authUrl = new URL("https://accounts.spotify.com/authorize");
-
   window.localStorage.setItem("code_verifier", codeVerifier);
+  const authUrl = new URL("https://accounts.spotify.com/authorize");
 
   if (clientId && redirectUri) {
     const params: TAuthUrlParams = {

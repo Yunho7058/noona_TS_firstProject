@@ -5,11 +5,8 @@ import { getSpotifyAuthUrl } from "../../utils/auth";
 const SButton = styled(Button)(({ theme }) => ({}));
 
 const LoginButton = () => {
-  const login = () => {
-    getSpotifyAuthUrl();
-  };
   return (
-    <SButton variant={"contained"} onClick={login}>
+    <SButton variant={"contained"} onClick={getSpotifyAuthUrl}>
       Login
     </SButton>
   );

@@ -29,10 +29,10 @@ const Library = () => {
   } = useGetCurrentUserPlaylist();
 
   useEffect(() => {
-    console.log("inView:", inView);
-    console.log("hasNextPage:", hasNextPage);
-    console.log("isFetchingNextPage:", isFetchingNextPage);
-    console.log("data:", data);
+    // console.log("inView:", inView);
+    // console.log("hasNextPage:", hasNextPage);
+    // console.log("isFetchingNextPage:", isFetchingNextPage);
+    // console.log("data:", data);
     if (inView && hasNextPage && !isFetchingNextPage) {
       fetchNextPage();
     }
