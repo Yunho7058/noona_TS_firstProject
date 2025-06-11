@@ -2,7 +2,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { getCurrenUserPlaylists } from "../apis/playlistApi";
 
 const LIMIT = 10;
-
+// const accessToken = localStorage.getItem("access_token");
 const useGetCurrentUserPlaylist = () => {
   return useInfiniteQuery({
     queryKey: ["current-user-playlist"],
@@ -16,6 +16,7 @@ const useGetCurrentUserPlaylist = () => {
       const nextOffset = url.searchParams.get("offset");
       return nextOffset ? parseInt(nextOffset, 10) : undefined;
     },
+    retry: false,
   });
 };
 
