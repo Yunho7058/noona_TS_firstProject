@@ -1,5 +1,6 @@
 import { TApitResponse } from "./apiResponse";
 import { TExternalUrls, TFollowers, TImage, TOwner } from "./commonType";
+import { TEpisode, TTrack } from "./track";
 
 export interface TGetCurrentUserPlaylistRequest {
   limit?: number;
@@ -56,6 +57,26 @@ export interface TGetPlaylistRequest {
   market?: string;
   fields?: string;
   additional_types?: string;
+}
+
+export interface TGetPlaylistItemsRequst extends TGetPlaylistRequest {
+  offset?: number;
+  limit?: number;
+}
+export type TGetplaylistItemsResponce = TApitResponse<TPlaylistTrack>;
+
+export interface TPlaylistTrack {
+  added_at?: string | null;
+  added_by?: {
+    id?: string;
+    followers?: TFollowers;
+    type?: string;
+    uri?: string;
+    external_urls?: TExternalUrls;
+    href?: string;
+  } | null;
+  is_local?: boolean;
+  track: TTrack | TEpisode;
 }
 
 /*
