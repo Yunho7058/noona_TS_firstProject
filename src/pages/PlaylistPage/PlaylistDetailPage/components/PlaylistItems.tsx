@@ -30,7 +30,16 @@ const PlaylistItems = ({ paramsId }: { paramsId: string }) => {
 
   // console.log(playItems?.pages[0].items);
   return (
-    <Box sx={{ maxHeight: "600px", overflow: "auto" }}>
+    <Box
+      sx={{
+        maxHeight: "600px",
+        overflow: "auto",
+        scrollbarWidth: "none",
+        "&::-webkit-scrollbar": {
+          display: "none",
+        },
+      }}
+    >
       <Table stickyHeader>
         <TableHead>
           <TableRow>
