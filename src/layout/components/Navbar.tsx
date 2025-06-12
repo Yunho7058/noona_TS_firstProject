@@ -14,8 +14,8 @@ const Navbar = () => {
   const handleLogout = () => {
     localStorage.removeItem("access_token");
     localStorage.removeItem("code_verifier");
-    navigate("/");
-    window.location.reload();
+    // navigate("/");
+    // window.location.reload();
   };
   return (
     <Box
