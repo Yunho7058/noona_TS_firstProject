@@ -79,6 +79,13 @@ export interface TPlaylistTrack {
   track: TTrack | TEpisode;
 }
 
+export interface TCreatePlaylistRequest {
+  name: string;
+  playlisyPublic?: string;
+  collaborative?: boolean;
+  description?: string;
+}
+
 /*
 export interface SpotifyPlaylistTracksResponse {
   href: string;

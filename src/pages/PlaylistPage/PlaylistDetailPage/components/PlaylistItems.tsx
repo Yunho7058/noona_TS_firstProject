@@ -46,7 +46,7 @@ const PlaylistItems = ({ paramsId }: { paramsId: string }) => {
             <TableCell>#</TableCell>
             <TableCell>제목</TableCell>
             <TableCell>앨범</TableCell>
-            <TableCell>작성일</TableCell>
+            <TableCell>추가된 날짜</TableCell>
             <TableCell>재생 시간</TableCell>
           </TableRow>
         </TableHead>
