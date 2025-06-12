@@ -38,6 +38,7 @@ function App() {
   const urlParams = new URLSearchParams(window.location.search);
   const codeVerifier = localStorage.getItem("code_verifier");
   let code = urlParams.get("code");
+
   let { mutate: exchangToken } = useExchangeToken();
   useEffect(() => {
     const alreadyExchanged = localStorage.getItem("access_token");
@@ -45,6 +46,21 @@ function App() {
       exchangToken({ code, codeVerifier });
     }
   }, [code, codeVerifier, exchangToken]);
+
+  // useEffect(() => {
+  //   const alreadyExchanged = localStorage.getItem("access_token");
+  //   const isRedirectedFromInvalidToken =
+  //     sessionStorage.getItem("redirectedDueTo401");
+
+  //   if (
+  //     code &&
+  //     codeVerifier &&
+  //     !alreadyExchanged &&
+  //     !isRedirectedFromInvalidToken
+  //   ) {
+  //     exchangToken({ code, codeVerifier });
+  //   }
+  // }, [code, codeVerifier, exchangToken]);
 
   return (
     <div className="App">

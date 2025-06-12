@@ -15,4 +15,16 @@ api.interceptors.request.use((req) => {
   return req;
 });
 
+api.interceptors.response.use(
+  (res) => res,
+  (error) => {
+    if (error.response?.status === 401) {
+      localStorage.removeItem("access_token");
+      alert("다시 로그인해주세요.");
+    }
+
+    return Promise.reject(error);
+  }
+);
+
 export default api;

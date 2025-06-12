@@ -15,12 +15,18 @@ const ContentBox = styled(Box)(({ theme }) => ({
   flexDirection: "row",
   gap: "1px",
   position: "relative",
+  transition: "all 0.2s ease",
+
   "&:hover .playIcon": {
     opacity: 1,
   },
   "&:hover": {
     cursor: "pointer",
     opacity: 0.7,
+  },
+  "&.active": {
+    backgroundColor: "red",
+    opacity: 1, // 활성화 상태에선 불투명하게
   },
 }));
 const StyledImage = styled("img")(({ theme }) => ({

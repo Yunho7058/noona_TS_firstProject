@@ -13,6 +13,7 @@ const useExchangeToken = () => {
     mutationFn: ({ code, codeVerifier }) => exchangeToken(code, codeVerifier),
     onSuccess: (data) => {
       localStorage.setItem("access_token", data.access_token);
+
       queryClient.invalidateQueries({
         queryKey: ["current-user-profile"],
       });
