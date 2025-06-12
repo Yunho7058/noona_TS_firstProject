@@ -1,10 +1,12 @@
 import {
+  TCreatePlaylistRequest,
   TGetCurrentUserPlaylistRequest,
   TGetCurrentUserPlaylistResponse,
   TGetPlaylistItemsRequst,
   TGetplaylistItemsResponce,
   TGetPlaylistRequest,
   TPlaylistResponse,
+  TPlaylistTrack,
 } from "../model/playlist";
 import api from "../utils/api";
 
@@ -47,5 +49,23 @@ export const getPlaylistItems = async (
     return response.data;
   } catch (error) {
     throw new Error("디테일 플레이 리스트 아이템 페일");
+  }
+};
+
+export const createPlaylist = async (
+  user_id: string,
+  params: TCreatePlaylistRequest
+): Promise<TPlaylistResponse> => {
+  try {
+    const { name, playlisyPublic, collaborative, description } = params;
+    const response = await api.post(`/users/${user_id}/playlists`, {
+      name,
+      public: playlisyPublic,
+      collaborative,
+      description,
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error("플레이 리스트 생성 페일");
   }
 };
