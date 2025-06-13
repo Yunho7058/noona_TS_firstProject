@@ -9,6 +9,7 @@ import { Box, Button, Typography } from "@mui/material";
 import { AxiosError } from "axios";
 import { TPlaylistResponse } from "../../../model/playlist";
 import { getSpotifyAuthUrl } from "../../../utils/auth";
+import EmptyPlaylistWithSearch from "./components/EmptyPlaylistWithSearch";
 
 const PlaylistDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -42,14 +43,14 @@ const PlaylistDetailPage = () => {
         <div>
           {playlist && <PlaylistHeader playlist={playlist} />}
           {playlist?.tracks?.total === 0 ? (
-            <Typography>검색</Typography>
+            <EmptyPlaylistWithSearch />
           ) : (
             <PlaylistItems paramsId={id} />
           )}
         </div>
       ) : (
         <Box textAlign="center" mt={10}>
-          <Typography variant="h6">다시 로그인 하세요</Typography>
+          <Typography variant="h5">다시 로그인 해주세요.</Typography>
           <Button onClick={getSpotifyAuthUrl}>Login</Button>
         </Box>
       )}

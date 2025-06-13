@@ -77,3 +77,33 @@ export interface TShow {
   uri: string;
   total_episodes: number;
 }
+
+export type TSimplifiedEposode = Omit<TEpisode, "show">;
+
+export interface TSimplifiedAudioBook {
+  authors: { name: string }[];
+  available_markets: string[];
+  copyrights: CopyrightObject[];
+  description: string;
+  html_description: string;
+  edition?: string;
+  explicit: boolean;
+  external_urls: {
+    spotify: string;
+  };
+  href: string;
+  id: string;
+  images: TImage[];
+  languages: string[];
+  media_type: string;
+  name: string;
+  narrators: { name: string }[];
+  publisher: string;
+  type: "audiobook";
+  uri: string;
+  total_chapters: number;
+}
+export interface CopyrightObject {
+  text: string;
+  type: "C" | "P";
+}
