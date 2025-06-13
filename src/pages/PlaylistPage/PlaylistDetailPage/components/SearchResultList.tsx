@@ -4,6 +4,8 @@ import {
   Box,
   Button,
   styled,
+  Table,
+  TableBody,
   TableCell,
   TableRow,
   Typography,
@@ -24,29 +26,32 @@ const AlbumImage = styled("img")({
 });
 
 export const SearchResultList = ({ list }: { list: TTrack[] }) => {
+  const handleTrackAdd = () => {};
   return (
-    <div>
-      {list.map((track) => (
-        <StyledTableRow key={track.id}>
-          <TableCell>
-            <Box display="flex" alignItems="center">
-              <Box>
-                <AlbumImage src={track.album?.images[0].url} width="40px" />
+    <Table>
+      <TableBody>
+        {list.map((track) => (
+          <StyledTableRow key={track.id}>
+            <TableCell>
+              <Box display="flex" alignItems="center">
+                <Box>
+                  <AlbumImage src={track.album?.images[0].url} width="40px" />
+                </Box>
+                <Box>
+                  <Typography fontWeight={700}>{track.name}</Typography>
+                  <Typography color="text.secondary">
+                    {track.artists ? track.artists[0].name : "Unknown Artist"}
+                  </Typography>
+                </Box>
               </Box>
-              <Box>
-                <Typography fontWeight={700}>{track.name}</Typography>
-                <Typography color="text.secondary">
-                  {track.artists ? track.artists[0].name : "Unknown Artist"}
-                </Typography>
-              </Box>
-            </Box>
-          </TableCell>
-          <TableCell>{track.album?.name}</TableCell>
-          <TableCell>
-            <Button>Add</Button>
-          </TableCell>
-        </StyledTableRow>
-      ))}
-    </div>
+            </TableCell>
+            <TableCell>{track.album?.name}</TableCell>
+            <TableCell>
+              <Button onClick={handleTrackAdd}>추가하기</Button>
+            </TableCell>
+          </StyledTableRow>
+        ))}
+      </TableBody>
+    </Table>
   );
 };
