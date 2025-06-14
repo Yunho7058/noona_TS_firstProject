@@ -15,6 +15,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   width: "100%",
   "&:hover": {
     backgroundColor: theme.palette.action.hover,
+    borderRadius: "100px",
+    cursor: "pointer",
   },
   "& .MuiTableCell-root": {
     borderBottom: "none",
@@ -28,8 +30,17 @@ const AlbumImage = styled("img")({
 export const SearchResultList = ({ list }: { list: TTrack[] }) => {
   const handleTrackAdd = () => {};
   return (
-    <Table>
-      <TableBody>
+    <Table
+      sx={{
+        maxHeight: "600px",
+        overflow: "hidden",
+        scrollbarWidth: "none",
+        "&::-webkit-scrollbar": {
+          display: "none",
+        },
+      }}
+    >
+      <TableBody sx={{ borderRadius: "50px" }}>
         {list.map((track) => (
           <StyledTableRow key={track.id}>
             <TableCell>

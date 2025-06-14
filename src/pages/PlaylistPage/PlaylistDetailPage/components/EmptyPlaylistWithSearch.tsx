@@ -1,17 +1,38 @@
-import React, { useState } from "react";
-import { Box, InputBase, Typography, styled, alpha } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import {
+  Box,
+  InputBase,
+  Typography,
+  styled,
+  alpha,
+  TableRow,
+  TableCell,
+} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import useSearchItemsByKeyword from "../../../../hooks/useSearchItemsByKeyword";
 import { SEARCH_TYPE } from "../../../../model/search";
 import { SearchResultList } from "./SearchResultList";
 import LoadingSpinner from "../../../../common/components/util/LoadingSpinner";
+import { useInView } from "react-intersection-observer";
 
-// 스타일 정의
 const SearchBoxWrapper = styled(Box)(({ theme }) => ({
-  backgroundColor: "#111",
-  padding: "40px",
+  backgroundColor: theme.palette.background.default,
+  padding: "30px",
   borderRadius: "8px",
   marginTop: "20px",
+}));
+const SearchResultListBox = styled(Box)(({ theme }) => ({
+  backgroundColor: theme.palette.background.default,
+  padding: "20px",
+  borderRadius: "8px",
+  marginTop: "20px",
+  height: "100%",
+  maxHeight: "380px",
+  overflow: "auto",
+  gap: "5px",
+  "&::-webkit-scrollbar": {
+    display: "none",
+  },
 }));
 
 const StyledSearch = styled("div")(({ theme }) => ({
@@ -42,18 +63,25 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   fontSize: "18px",
 }));
 
-// 컴포넌트
+// 플레이 리스트 아이템 없을때, 검색창
 const EmptyPlaylistWithSearch = () => {
   const [keyword, setKeyword] = useState<string>("");
-
-  const { data, isLoading } = useSearchItemsByKeyword({
-    q: keyword,
-    type: [SEARCH_TYPE.Track],
-  });
+  const { ref, inView } = useInView({ threshold: 0 });
+  const { data, isLoading, hasNextPage, isFetchingNextPage, fetchNextPage } =
+    useSearchItemsByKeyword({
+      q: keyword,
+      type: [SEARCH_TYPE.Track],
+    });
 
   const handleSearchKeyword = (event: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(event.target.value);
   };
+
+  useEffect(() => {
+    if (inView && hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   return (
     <SearchBoxWrapper>
@@ -71,21 +99,25 @@ const EmptyPlaylistWithSearch = () => {
           onChange={handleSearchKeyword}
         />
       </StyledSearch>
-
-      {isLoading ? (
-        <LoadingSpinner />
-      ) : (
-        data?.pages.map((item, idx) => {
-          if (!item.tracks?.items[0]) {
-            return (
-              <Typography key={idx} mt={2}>
-                No Result for {keyword}
-              </Typography>
-            );
-          }
-          return <SearchResultList key={idx} list={item.tracks.items} />;
-        })
-      )}
+      <SearchResultListBox>
+        {isLoading ? (
+          <LoadingSpinner />
+        ) : (
+          data?.pages.map((item, idx) => {
+            if (!item.tracks?.items[0]) {
+              return (
+                <Typography key={idx} mt={2}>
+                  No Result for {keyword}
+                </Typography>
+              );
+            }
+            return <SearchResultList key={idx} list={item.tracks.items} />;
+          })
+        )}
+        {hasNextPage && (
+          <Box ref={ref}>{isFetchingNextPage && <LoadingSpinner />}</Box>
+        )}
+      </SearchResultListBox>
     </SearchBoxWrapper>
   );
 };
