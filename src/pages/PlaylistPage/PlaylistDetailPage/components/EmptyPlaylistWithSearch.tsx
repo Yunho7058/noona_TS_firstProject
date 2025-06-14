@@ -86,7 +86,7 @@ const EmptyPlaylistWithSearch = () => {
   return (
     <SearchBoxWrapper>
       <Typography variant="h4" fontWeight="bold">
-        Let’s find something for your playlist
+        플레이리스트에 추가할 곡을 찾아보세요.
       </Typography>
 
       <StyledSearch>
@@ -94,7 +94,7 @@ const EmptyPlaylistWithSearch = () => {
           <SearchIcon />
         </SearchIconWrapper>
         <StyledInputBase
-          placeholder="Search for songs or episodes"
+          placeholder="곡 또는 에피소드를 검색해주세요."
           value={keyword}
           onChange={handleSearchKeyword}
         />
@@ -107,7 +107,7 @@ const EmptyPlaylistWithSearch = () => {
             if (!item.tracks?.items[0]) {
               return (
                 <Typography key={idx} mt={2}>
-                  No Result for {keyword}
+                  "{keyword}" 일치하는 결과 없습니다.
                 </Typography>
               );
             }
