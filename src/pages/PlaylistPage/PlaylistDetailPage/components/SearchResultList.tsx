@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { TTrack } from "../../../../model/track";
 import {
   Box,
@@ -10,6 +10,8 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
+import useAddPlaylistItem from "../../../../hooks/useAddPlaylistItem";
+import { useParams } from "react-router";
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   width: "100%",
@@ -28,7 +30,19 @@ const AlbumImage = styled("img")({
 });
 
 export const SearchResultList = ({ list }: { list: TTrack[] }) => {
-  const handleTrackAdd = () => {};
+  // const [playlistId, setPlaylistId] = useState(list[0].id);
+  const { id: playlistId } = useParams<{ id: string }>();
+
+  const { mutate: addPlaylistItem } = useAddPlaylistItem(playlistId);
+  const handleTrackAdd = (track: TTrack) => {
+    // 예: props로 받은 값
+    if (!playlistId || !track.uri) return;
+    //console.log("playlistId", list[0].id, "uris", [track.uri]);
+    addPlaylistItem({
+      playlistId,
+      uris: [track.uri],
+    });
+  };
   return (
     <Table
       sx={{
@@ -58,7 +72,13 @@ export const SearchResultList = ({ list }: { list: TTrack[] }) => {
             </TableCell>
             <TableCell>{track.album?.name}</TableCell>
             <TableCell>
-              <Button onClick={handleTrackAdd}>추가하기</Button>
+              <Button
+                onClick={() => {
+                  handleTrackAdd(track);
+                }}
+              >
+                추가하기
+              </Button>
             </TableCell>
           </StyledTableRow>
         ))}

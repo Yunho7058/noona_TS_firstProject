@@ -69,3 +69,26 @@ export const createPlaylist = async (
     throw new Error("플레이 리스트 생성 페일");
   }
 };
+
+export const addPlaylistItem = async ({
+  playlistId,
+  uris,
+  position,
+}: {
+  playlistId: string;
+  uris: string[];
+  position?: number;
+}): Promise<TAddPlaylistTrackRes> => {
+  const body = { uris, ...(position !== undefined && { position }) };
+  try {
+    //console.log(playlistId, uris, body);
+    const response = await api.post(`/playlists/${playlistId}/tracks`, body);
+    return response.data;
+  } catch {
+    throw new Error("플레이리스트 트랙 추가 페일");
+  }
+};
+
+export interface TAddPlaylistTrackRes {
+  snapshot_id: string;
+}
