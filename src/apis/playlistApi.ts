@@ -1,4 +1,5 @@
 import {
+  TAddPlaylistTrackRes,
   TCreatePlaylistRequest,
   TGetCurrentUserPlaylistRequest,
   TGetCurrentUserPlaylistResponse,
@@ -89,7 +90,3 @@ export const addPlaylistItem = async ({
     throw new Error("플레이리스트 트랙 추가 페일");
   }
 };
-
-export interface TAddPlaylistTrackRes {
-  snapshot_id: string;
-}

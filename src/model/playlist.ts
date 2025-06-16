@@ -86,6 +86,10 @@ export interface TCreatePlaylistRequest {
   description?: string;
 }
 
+export interface TAddPlaylistTrackRes {
+  snapshot_id: string;
+}
+
 /*
 export interface SpotifyPlaylistTracksResponse {
   href: string;

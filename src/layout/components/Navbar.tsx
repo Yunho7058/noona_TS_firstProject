@@ -6,6 +6,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LoadingSpinner from "../../common/components/util/LoadingSpinner";
 import { useNavigate } from "react-router";
 import ProfileAvatar from "./ProfileAvatar";
+import { SearchInput } from "../../common/components/SearchInput";
 
 const Navbar = () => {
   const { data: userProfile, isLoading } = useGetUserProfile();
@@ -20,24 +21,27 @@ const Navbar = () => {
   return (
     <Box
       display={"flex"}
-      justifyContent={"flex-end"}
+      justifyContent={"space-between"}
       alignItems={"center"}
       height={"64px"}
-      onClick={handleLogout}
     >
-      {isLoading ? (
-        <LoadingSpinner />
-      ) : userProfile ? (
-        userProfile.images[0] ? (
-          <ProfileAvatar userImageUrl={userProfile.images[0].url} />
+      <SearchInput propsClassName={"heade"} />
+      <Box onClick={handleLogout}>
+        {isLoading ? (
+          <LoadingSpinner />
+        ) : userProfile ? (
+          userProfile.images[0] ? (
+            <ProfileAvatar
+              userImageUrl={userProfile.images[0].url}
+              isImage={true}
+            />
+          ) : (
+            <ProfileAvatar userImageUrl={"noImage"} isImage={false} />
+          )
         ) : (
-          <Avatar sx={{ width: 56, height: 56 }}>
-            <AccountCircleIcon sx={{ fontSize: 40 }} />
-          </Avatar>
-        )
-      ) : (
-        <LoginButton />
-      )}
+          <LoginButton />
+        )}
+      </Box>
     </Box>
   );
 };
