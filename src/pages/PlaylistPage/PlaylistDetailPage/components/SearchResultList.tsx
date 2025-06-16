@@ -32,7 +32,9 @@ const AlbumImage = styled("img")({
 export const SearchResultList = ({ list }: { list: TTrack[] }) => {
   // const [playlistId, setPlaylistId] = useState(list[0].id);
   const { id: playlistId } = useParams<{ id: string }>();
-
+  if (!playlistId) {
+    return <div>다시 로그인해주세요.</div>;
+  }
   const { mutate: addPlaylistItem } = useAddPlaylistItem(playlistId);
   const handleTrackAdd = (track: TTrack) => {
     // 예: props로 받은 값
