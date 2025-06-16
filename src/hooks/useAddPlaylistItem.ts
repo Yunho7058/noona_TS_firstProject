@@ -15,9 +15,11 @@ const useAddPlaylistItem = (playlist_id: string) => {
     mutationFn: addPlaylistItem,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["playlist-items", { playlist_id }],
+        queryKey: ["playlist-detail", playlist_id],
       });
-      //["playlist-items", params] ,{playlist_id}
+      queryClient.invalidateQueries({
+        queryKey: ["current-user-playlist"],
+      });
     },
   });
 };

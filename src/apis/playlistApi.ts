@@ -82,6 +82,7 @@ export const addPlaylistItem = async ({
   const body = { uris, ...(position !== undefined && { position }) };
   try {
     //console.log(playlistId, uris, body);
+    //앞뒤 추가되는 위치 지정
     const response = await api.post(`/playlists/${playlistId}/tracks`, body);
     return response.data;
   } catch {
