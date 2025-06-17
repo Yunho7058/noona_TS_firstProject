@@ -43,9 +43,6 @@ const InfoBox = styled(Box)({
   alignItems: "flex-start",
   gap: 2,
 });
-// const IconStyle = styled(MusicNoteIcon)({
-
-// });
 
 const PlaylistHeader = ({ playlist }: { playlist: TPlaylistResponse }) => {
   return (

@@ -13,7 +13,7 @@ import {
 export const enum SEARCH_TYPE {
   Album = "album",
   Artist = "artist",
-  Platlist = "playlist",
+  Playlist = "playlist",
   Track = "track",
   Show = "show",
   Episode = "episode",

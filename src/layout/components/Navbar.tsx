@@ -21,11 +21,11 @@ const Navbar = () => {
   return (
     <Box
       display={"flex"}
-      justifyContent={"space-between"}
+      justifyContent={"flex-end"}
       alignItems={"center"}
       height={"64px"}
     >
-      <SearchInput propsClassName={"heade"} />
+      {/* <SearchInput propsClassName={"heade"} /> */}
       <Box onClick={handleLogout}>
         {isLoading ? (
           <LoadingSpinner />

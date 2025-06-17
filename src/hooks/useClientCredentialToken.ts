@@ -1,5 +1,3 @@
-// 토큰을 요청하는 훅
-
 import { useQuery } from "@tanstack/react-query";
 import { getClientCredentialToken } from "../apis/authApi";
 

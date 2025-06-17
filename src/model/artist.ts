@@ -1,4 +1,4 @@
-import { TExternalUrls } from "./commonType";
+import { TExternalUrls, TImage } from "./commonType";
 
 export interface TArtist {
   external_urls?: TExternalUrls;
@@ -7,4 +7,5 @@ export interface TArtist {
   name?: string;
   tpye?: string;
   uri?: string;
+  image?: TImage[];
 }

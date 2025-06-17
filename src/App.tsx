@@ -47,29 +47,14 @@ function App() {
     }
   }, [code, codeVerifier, exchangToken]);
 
-  // useEffect(() => {
-  //   const alreadyExchanged = localStorage.getItem("access_token");
-  //   const isRedirectedFromInvalidToken =
-  //     sessionStorage.getItem("redirectedDueTo401");
-
-  //   if (
-  //     code &&
-  //     codeVerifier &&
-  //     !alreadyExchanged &&
-  //     !isRedirectedFromInvalidToken
-  //   ) {
-  //     exchangToken({ code, codeVerifier });
-  //   }
-  // }, [code, codeVerifier, exchangToken]);
-
   return (
     <div className="App">
       <Suspense fallback={<LoadingSpinner />}>
         <Routes>
           <Route path="/" element={<AppLayout />}>
             <Route index element={<HomePage />} />
-            <Route path="search" element={<SearchPage />} />
-            <Route path="search/:keyword" element={<SearchPageWithPage />} />
+            <Route path="search/:keyword?" element={<SearchPage />} />
+            {/* <Route path="search/:keyword" element={<SearchPageWithPage />} /> */}
             <Route path="playlist/:id" element={<PlaylistDetailPage />} />
             <Route path="playlist" element={<PlaylistPage />} />
           </Route>
@@ -81,3 +66,18 @@ function App() {
 }
 
 export default App;
+
+// useEffect(() => {
+//   const alreadyExchanged = localStorage.getItem("access_token");
+//   const isRedirectedFromInvalidToken =
+//     sessionStorage.getItem("redirectedDueTo401");
+
+//   if (
+//     code &&
+//     codeVerifier &&
+//     !alreadyExchanged &&
+//     !isRedirectedFromInvalidToken
+//   ) {
+//     exchangToken({ code, codeVerifier });
+//   }
+// }, [code, codeVerifier, exchangToken]);
