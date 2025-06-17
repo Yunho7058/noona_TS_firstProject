@@ -32,7 +32,7 @@ const SearchResultPage = ({
 }: TSearchResultPageProps) => {
   const topTrack = tracks?.[0];
   const otherTracks = tracks?.slice(1);
-  console.log(artists[0].images?.[0].url);
+  console.log(albums[0].artists[0].name);
   // 컴포넌트화 시키기
   // 노래, 가수, 앨범 -> 앨범은 따로
   return (
@@ -59,6 +59,7 @@ const SearchResultPage = ({
           </Box>
         </Box>
       )}
+      {/* 컴포넌트 화 */}
       <Box mb={5}>
         <Typography variant="h5" fontWeight="bold" mb={2}>
           Songs
@@ -89,6 +90,7 @@ const SearchResultPage = ({
           ))}
         </List>
       </Box>
+      {/* 컴포넌트 화 */}
       <Box mb={5}>
         <Typography variant="h5" fontWeight="bold" mb={2}>
           Artists
@@ -122,6 +124,25 @@ const SearchResultPage = ({
             </Grid>
           ))}
         </Grid>
+      </Box>
+      {/* 컴포넌트 화 */}
+      {/* 앨범 */}
+      <Box>
+        Albums
+        <Box>
+          {albums.map((album) => (
+            <Grid key={album.id}>
+              <Avatar
+                src={album.images?.[0]?.url || ""}
+                alt={album.name}
+                variant="rounded"
+                sx={{ width: 96, height: 96 }}
+              ></Avatar>
+              <Typography>{album.name}</Typography>
+              <Typography>{album.artists[0].name}</Typography>
+            </Grid>
+          ))}
+        </Box>
       </Box>
     </Box>
   );
