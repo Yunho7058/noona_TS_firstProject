@@ -1,8 +1,8 @@
 import React from "react";
 import { Box, Typography, styled } from "@mui/material";
-
-// 랜덤 색상 목록
-const colors = ["#4B367C", "#F6E652", "#E758B9", "#A6754E", "#B5ECE1"];
+import { getRandomColor } from "../../common/components/util/getRandomColor";
+import useGetCategory from "../../hooks/useGetCategory";
+import LoadingSpinner from "../../common/components/util/LoadingSpinner";
 
 const GridContainer = styled(Box)({
   display: "grid",
@@ -15,7 +15,7 @@ const CategoryCard = styled(Box)<{ bgcolor: string }>`
   position: relative;
   background-color: ${({ bgcolor }) => bgcolor};
   border-radius: 12px;
-  height: 200px;
+  height: 300px;
   overflow: hidden;
   padding: 16px;
   display: flex;
@@ -25,56 +25,30 @@ const CategoryCard = styled(Box)<{ bgcolor: string }>`
 
 const CategoryImage = styled("img")({
   position: "absolute",
-  width: "150px",
+  width: "200px",
   bottom: "-10px",
-  right: "-15px",
+  right: "-25px",
   transform: "rotate(20deg)",
   opacity: 0.8,
 });
 
-const categories: {
-  title: string;
-  imageUrl: string;
-}[] = [
-  {
-    title: "Made For You",
-    imageUrl: "https://t.scdn.co/images/728ed47fc1674feb95f7ac20236eb6d7.jpeg",
-  },
-  {
-    title: "New Releases",
-    imageUrl: "https://t.scdn.co/images/728ed47fc1674feb95f7ac20236eb6d7.jpeg",
-  },
-  {
-    title: "Vietnamese Music",
-    imageUrl: "https://t.scdn.co/images/728ed47fc1674feb95f7ac20236eb6d7.jpeg",
-  },
-  {
-    title: "Pop",
-    imageUrl: "https://t.scdn.co/images/728ed47fc1674feb95f7ac20236eb6d7.jpeg",
-  },
-  {
-    title: "K-pop",
-    imageUrl: "https://t.scdn.co/images/728ed47fc1674feb95f7ac20236eb6d7.jpeg",
-  },
-  {
-    title: "Hip-Hop",
-    imageUrl: "https://t.scdn.co/images/728ed47fc1674feb95f7ac20236eb6d7.jpeg",
-  },
-];
-
-const getRandomColor = () => {
-  return colors[Math.floor(Math.random() * colors.length)];
-};
-
 const SearchPageCardGrid = () => {
+  const { data, isLoading } = useGetCategory();
+
+  if (isLoading || !data || !data.categories.items) {
+    if (!data) return <div>로그인을 해주세요.</div>;
+    return <LoadingSpinner />;
+  }
   return (
     <GridContainer>
-      {categories.map((cat, idx) => (
+      {data.categories.items.map((cat, idx) => (
         <CategoryCard key={idx} bgcolor={getRandomColor()}>
           <Typography variant="subtitle1" color="white" fontWeight="bold">
-            {cat.title}
+            {cat.name}
           </Typography>
-          <CategoryImage src={cat.imageUrl} alt={cat.title} />
+          {cat.icons?.[0]?.url && (
+            <CategoryImage src={cat.icons[0].url} alt={cat.name} />
+          )}
         </CategoryCard>
       ))}
     </GridContainer>

@@ -86,7 +86,7 @@ export const addPlaylistItem = async ({
     //앞뒤 추가되는 위치 지정
     const response = await api.post(`/playlists/${playlistId}/tracks`, body);
     return response.data;
-  } catch {
+  } catch (error) {
     throw new Error("플레이리스트 트랙 추가 페일");
   }
 };

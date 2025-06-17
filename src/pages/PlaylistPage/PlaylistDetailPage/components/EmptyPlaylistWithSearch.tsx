@@ -82,7 +82,9 @@ const EmptyPlaylistWithSearch = () => {
       fetchNextPage();
     }
   }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
-
+  console.log("앨범", data?.pages[0].albums);
+  console.log("아티스트", data?.pages[0].artists);
+  console.log("노래", data?.pages[0].tracks);
   return (
     <SearchBoxWrapper>
       <Typography variant="h4" fontWeight="bold">
@@ -107,7 +109,7 @@ const EmptyPlaylistWithSearch = () => {
             if (!item.tracks?.items[0]) {
               return (
                 <Typography key={idx} mt={2}>
-                  "{keyword}" 일치하는 결과 없습니다.
+                  "{keyword}"는(은) 일치하는 결과 없습니다.
                 </Typography>
               );
             }

@@ -33,6 +33,7 @@ const useSearchItemsByKeyword = (params: TSearchReqParams) => {
 
       return undefined;
     },
+    enabled: !!params.q,
   });
 };
 
