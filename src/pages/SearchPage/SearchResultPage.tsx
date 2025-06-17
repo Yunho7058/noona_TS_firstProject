@@ -32,7 +32,9 @@ const SearchResultPage = ({
 }: TSearchResultPageProps) => {
   const topTrack = tracks?.[0];
   const otherTracks = tracks?.slice(1);
-  console.log(artists);
+  console.log(artists[0].images?.[0].url);
+  // 컴포넌트화 시키기
+  // 노래, 가수, 앨범 -> 앨범은 따로
   return (
     <Box sx={{ px: 4, py: 3, color: "white", bgcolor: "#121212" }}>
       {topTrack && (
@@ -57,7 +59,6 @@ const SearchResultPage = ({
           </Box>
         </Box>
       )}
-
       <Box mb={5}>
         <Typography variant="h5" fontWeight="bold" mb={2}>
           Songs
@@ -94,10 +95,20 @@ const SearchResultPage = ({
         </Typography>
         <Grid container spacing={2}>
           {artists.map((artist) => (
-            <Grid key={artist.id}>
+            <Grid
+              key={artist.id}
+              sx={{
+                ":hover": {
+                  backgroundColor: "rgba(255,255,255,0.1)",
+                  cursor: "pointer",
+                },
+                padding: "10px",
+                borderRadius: "10px",
+              }}
+            >
               <Box textAlign="center">
                 <Avatar
-                  src={artist?.image?.[0].url}
+                  src={artist.images?.[0]?.url || ""}
                   alt={artist.name}
                   sx={{ width: 80, height: 80, mx: "auto" }}
                 />

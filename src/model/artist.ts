@@ -7,5 +7,5 @@ export interface TArtist {
   name?: string;
   tpye?: string;
   uri?: string;
-  image?: TImage[];
+  images?: TImage[];
 }
