@@ -12,6 +12,7 @@ import {
 import { TTrack } from "../../model/track";
 import { TArtist } from "../../model/artist";
 import { TSimplifiedAlbum } from "../../model/album";
+import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 
 type TSearchResultPageProps = {
   tracks: TTrack[];
@@ -32,9 +33,7 @@ const SearchResultPage = ({
 }: TSearchResultPageProps) => {
   const topTrack = tracks?.[0];
   const otherTracks = tracks?.slice(1);
-  console.log(albums[0].artists[0].name);
-  // 컴포넌트화 시키기
-  // 노래, 가수, 앨범 -> 앨범은 따로
+
   return (
     <Box sx={{ px: 4, py: 3, color: "white", bgcolor: "#121212" }}>
       {topTrack && (
@@ -103,12 +102,17 @@ const SearchResultPage = ({
                 ":hover": {
                   backgroundColor: "rgba(255,255,255,0.1)",
                   cursor: "pointer",
+                  ".play-icon": {
+                    opacity: 1,
+                  },
                 },
                 padding: "10px",
                 borderRadius: "10px",
+                position: "relative",
+                width: "120px",
               }}
             >
-              <Box textAlign="center">
+              <Box>
                 <Avatar
                   src={artist.images?.[0]?.url || ""}
                   alt={artist.name}
@@ -120,6 +124,19 @@ const SearchResultPage = ({
                 <Typography variant="caption" color="gray">
                   Artist
                 </Typography>
+                <PlayCircleIcon
+                  className="play-icon"
+                  sx={{
+                    position: "absolute",
+                    opacity: 0,
+                    top: 5,
+                    left: 5,
+                    width: "40px",
+                    height: "40px",
+                    transition: "opacity 0.3s ease",
+                    color: "#5CE75C",
+                  }}
+                />
               </Box>
             </Grid>
           ))}
