@@ -37,8 +37,13 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const SearchPage = () => {
   const navigate = useNavigate();
-
-  const [keyword, setKeyword] = useState<string>("");
+  const { keyword: paramsKeyWord } = useParams<{ keyword: string }>();
+  const [keyword, setKeyword] = useState<string>(``);
+  useEffect(() => {
+    if (paramsKeyWord?.trim()) {
+      setKeyword(paramsKeyWord);
+    }
+  }, []);
   useEffect(() => {
     if (keyword.trim()) {
       navigate(`/search/${keyword}`);
