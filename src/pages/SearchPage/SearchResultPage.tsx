@@ -13,6 +13,7 @@ import { TTrack } from "../../model/track";
 import { TArtist } from "../../model/artist";
 import { TSimplifiedAlbum } from "../../model/album";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
+import SearchResultPlaylist from "./components/SearchResultPlaylist";
 
 type TSearchResultPageProps = {
   tracks: TTrack[];
@@ -73,6 +74,14 @@ const SearchResultPage = ({
                   {track.duration_ms && formatDuration(track.duration_ms)}
                 </Typography>
               }
+              sx={{
+                padding: "10px",
+                borderRadius: "10px",
+                ":hover": {
+                  backgroundColor: "rgba(255,255,255,0.1)",
+                  cursor: "pointer",
+                },
+              }}
             >
               <ListItemAvatar>
                 <Avatar
@@ -85,6 +94,7 @@ const SearchResultPage = ({
                 primary={track.name}
                 secondary={track?.artists?.map((a) => a.name).join(", ")}
               />
+              <SearchResultPlaylist />
             </ListItem>
           ))}
         </List>
