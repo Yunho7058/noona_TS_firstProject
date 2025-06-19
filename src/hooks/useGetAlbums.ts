@@ -1,17 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
-import { getNewReleases } from "../apis/albumApi";
 import { useClientCredentialToken } from "./useClientCredentialToken";
+import { getAlbums } from "../apis/albumApi";
 
-export const useGetNewReleases = () => {
+export const useGetAlbums = (ids: string[]) => {
   const clientCredentialToken = useClientCredentialToken();
   return useQuery({
-    queryKey: ["new-releases"], // 고유한 아이디
+    queryKey: ["all-albums"],
     queryFn: async () => {
       if (!clientCredentialToken) {
         throw new Error("No token available");
       }
-      return getNewReleases(clientCredentialToken);
+      return getAlbums(clientCredentialToken, ids);
     },
-    //enabled: !!clientCredentialToken, // 토큰이 있어야만 요청 실행
   });
 };

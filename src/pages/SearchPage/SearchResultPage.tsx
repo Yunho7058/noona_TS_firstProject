@@ -69,11 +69,6 @@ const SearchResultPage = ({
             <ListItem
               key={track.id}
               disableGutters
-              secondaryAction={
-                <Typography variant="body2" color="gray">
-                  {track.duration_ms && formatDuration(track.duration_ms)}
-                </Typography>
-              }
               sx={{
                 padding: "10px",
                 borderRadius: "10px",
@@ -94,7 +89,10 @@ const SearchResultPage = ({
                 primary={track.name}
                 secondary={track?.artists?.map((a) => a.name).join(", ")}
               />
-              <SearchResultPlaylist />
+              <SearchResultPlaylist uris={track.uri} />
+              <Typography variant="body2" color="gray" ml={10}>
+                {track.duration_ms && formatDuration(track.duration_ms)}
+              </Typography>
             </ListItem>
           ))}
         </List>

@@ -82,9 +82,7 @@ const EmptyPlaylistWithSearch = () => {
       fetchNextPage();
     }
   }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
-  console.log("앨범", data?.pages[0].albums);
-  console.log("아티스트", data?.pages[0].artists);
-  console.log("노래", data?.pages[0].tracks);
+
   return (
     <SearchBoxWrapper>
       <Typography variant="h4" fontWeight="bold">
