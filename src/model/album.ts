@@ -6,6 +6,9 @@ import { TApitResponse } from "./apiResponse";
 export interface TGetNewReleasesResponse {
   albums: TApitResponse<TSimplifiedAlbum>;
 }
+export interface TGetAlbumsResponse {
+  albums: TSimplifiedAlbum[];
+}
 
 export interface TSimplifiedAlbum {
   album_type: string;

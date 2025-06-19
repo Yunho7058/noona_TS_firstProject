@@ -1,12 +1,9 @@
 import { Avatar, Box, styled } from "@mui/material";
-import React from "react";
 import LoginButton from "../../common/components/LoginButton";
 import useGetUserProfile from "../../hooks/useGetUserProfile";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LoadingSpinner from "../../common/components/util/LoadingSpinner";
 import { useNavigate } from "react-router";
 import ProfileAvatar from "./ProfileAvatar";
-import { SearchInput } from "../../common/components/SearchInput";
 
 const Navbar = () => {
   const { data: userProfile, isLoading } = useGetUserProfile();

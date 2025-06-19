@@ -1,82 +1,77 @@
-import React, { useState } from "react";
-import {
-  Box,
-  Typography,
-  List,
-  ListItem,
-  ListItemAvatar,
-  Avatar,
-  ListItemText,
-  IconButton,
-  Menu,
-  MenuItem,
-  Snackbar,
-} from "@mui/material";
+import React, { useEffect, useRef, useState } from "react";
+import { Box, Collapse, List, ListItem, styled } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+import useGetCurrentUserPlaylist from "../../../hooks/useGetCurrentUserPlaylist";
 
-const mockSongs = [
-  {
-    id: "1",
-    name: "Love Hangover (feat. Dominic Fike)",
-    artists: ["JENNIE", "Dominic Fike"],
-    imageUrl: "/cover1.jpg",
-    duration: "03:00",
+import useAddPlaylistItem from "../../../hooks/useAddPlaylistItem";
+import { SearchResultPlaylistItem } from "./SearchResultPlaylistItem";
+
+const StyleIconContainer = styled(AddIcon)(({ theme }) => ({
+  "&:hover": {
+    color: "blue",
   },
-  {
-    id: "2",
-    name: "Love Me",
-    artists: ["Lil Wayne", "Drake", "Future"],
-    imageUrl: "/cover2.jpg",
-    duration: "04:15",
-  },
-];
+}));
+/*
+구현 해야할거
+1. 노래 호버시, 나의 네이버바 보이면서 나의 플레이르스트 쭉 보이게 하기,
+2. 그리고 그 플레이리스트 클릭시, 그 플레이리스트로 노래 추가
 
-const mockPlaylists = [
-  { id: "a", name: "팝핀" },
-  { id: "b", name: "연습힙합" },
-  { id: "c", name: "RnB" },
-];
+자 일단 호버시 네이버바 구현
+*/
+// (({ theme }) => ({}))
+const StlyedCollapse = styled(Collapse)(({ theme }) => ({
+  position: "absolute",
+  width: "300px",
+  height: "500px",
+  backgroundColor: "rgba(255,255,255,0.3)",
+  borderRadius: "10px",
+}));
 
-const SearchResultPlaylist = () => {
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [selectedSongId, setSelectedSongId] = useState<string | null>(null);
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
+const SearchResultPlaylist = ({ uris }: { uris?: string }) => {
+  const [isBtn, setIsBtn] = useState(false);
+  const { data: playlists, isLoading } = useGetCurrentUserPlaylist();
+  // 플레이 리스트 아이디랑, 선택한 노래 아이디 보내기?
+  //const { mutate: addPlaylistItem } = useAddPlaylistItem(playlistId);
+  const [openPlaylistId, setOpenPlaylistId] = useState<string | null>(null);
 
-  const handleAddClick = (
-    event: React.MouseEvent<HTMLElement>,
-    songId: string
-  ) => {
-    setAnchorEl(event.currentTarget);
-    setSelectedSongId(songId);
-  };
+  //const handleToggle = (id: string) => {
+  //   console.log(id);
+  //   setOpenPlaylistId((prev) => (prev === id ? null : id)); // 같은 거 누르면 닫기
+  // };
+  const ref = useRef<HTMLDivElement | null>(null);
 
-  const handleSelectPlaylist = (playlistId: string) => {
-    console.log(`🎵 Song ${selectedSongId} added to playlist ${playlistId}`);
-    setAnchorEl(null);
-    setSnackbarOpen(true);
-    // 여기에 실제 추가 로직 (API 호출 등) 작성
-  };
+  // 🔹 외부 클릭 시 닫힘
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (ref.current && !ref.current.contains(event.target as Node)) {
+        setIsBtn(false);
+      }
+    };
 
+    if (isBtn) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isBtn]);
   return (
-    <Box>
-      <Menu
-        anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
-        onClose={() => setAnchorEl(null)}
-      >
-        {mockPlaylists.map((pl) => (
-          <MenuItem key={pl.id} onClick={() => handleSelectPlaylist(pl.id)}>
-            {pl.name}
-          </MenuItem>
-        ))}
-      </Menu>
-
-      <Snackbar
-        open={snackbarOpen}
-        autoHideDuration={3000}
-        message="✅ Added to Playlist"
-        onClose={() => setSnackbarOpen(false)}
-      />
+    <Box sx={{ position: "relative" }} ref={ref}>
+      <StyleIconContainer onClick={() => setIsBtn(!isBtn)} />
+      <StlyedCollapse in={isBtn}>
+        <List>
+          {playlists?.pages[0].items?.map((play) => (
+            <SearchResultPlaylistItem
+              key={play.id}
+              playlists={play}
+              setIsBtn={setIsBtn}
+              // isOpen={openPlaylistId === play.id}
+              // onToggle={handleToggle}
+              uris={uris}
+            />
+          ))}
+        </List>
+      </StlyedCollapse>
     </Box>
   );
 };
