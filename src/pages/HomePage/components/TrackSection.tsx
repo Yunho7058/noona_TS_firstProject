@@ -1,7 +1,14 @@
-import { Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import React from "react";
-
-const TrackSection = () => {
+import { useGetAlbums } from "../../../hooks/useGetAlbums";
+import Card from "../../../common/components/Card";
+import { SEARCH_TYPE } from "../../../model/search";
+import useSearchItemsByKeyword from "../../../hooks/useSearchItemsByKeyword";
+const AlbumSection = ({ ids }: { ids: string[] }) => {
+  const { data, isLoading } = useSearchItemsByKeyword({
+    q: "summer",
+    type: [SEARCH_TYPE.Track],
+  });
   return (
     <>
       <Typography
@@ -11,23 +18,28 @@ const TrackSection = () => {
         alignItems={"center"}
         marginBottom={"15px"}
       >
-        TRACKS
+        TRACK - 시원하게 듣는 여름 노래
       </Typography>
-      {/* {data && data?.albums.items.length > 0 ? (
-        <Grid container spacing={3}>
-          {data.albums.items.map((album) => (
-            <Card
-              key={album.id}
-              image={album.images[0].url}
-              name={album.name}
-              artistName={album.artists[0].name}
-            />
-          ))}
-        </Grid>
-      )  */}{" "}
-      <>GK</>: (<Typography variant={"h2"}>No Data</Typography>)
+      <>
+        {data ? (
+          <Grid container spacing={3}>
+            {data?.pages[0].tracks?.items.map((track) => (
+              <Card
+                key={track.id}
+                image={track?.album?.images?.[0]?.url}
+                name={track.name}
+                artistName={track?.artists?.map((a) => a.name).join(", ")}
+              />
+            ))}
+          </Grid>
+        ) : (
+          <Typography variant={"h2"}>No Data</Typography>
+        )}
+      </>
+
+      {/* <Typography variant={"h2"}>No Data</Typography> */}
     </>
   );
 };
 
-export default TrackSection;
+export default AlbumSection;

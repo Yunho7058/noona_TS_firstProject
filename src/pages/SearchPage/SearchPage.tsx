@@ -16,6 +16,9 @@ const StyledSearch = styled("div")(({ theme }) => ({
   },
   marginTop: "20px",
   width: "50%",
+  [theme.breakpoints.down("sm")]: {
+    width: "100%",
+  },
 }));
 
 const SearchIconWrapper = styled("div")(({ theme }) => ({
@@ -79,7 +82,7 @@ const SearchPage = () => {
   const albumItems =
     albums?.pages.flatMap((page) => page.albums?.items ?? []) ?? [];
   return (
-    <div>
+    <>
       <StyledSearch>
         <SearchIconWrapper>
           <SearchIcon />
@@ -110,7 +113,7 @@ const SearchPage = () => {
           </div>
         </>
       )}
-    </div>
+    </>
   );
 };
 

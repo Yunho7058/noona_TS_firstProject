@@ -36,7 +36,7 @@ const SearchResultPage = ({
   const otherTracks = tracks?.slice(1);
 
   return (
-    <Box sx={{ px: 4, py: 3, color: "white", bgcolor: "#121212" }}>
+    <>
       {topTrack && (
         <Box mb={5}>
           <Typography variant="h5" fontWeight="bold" mb={2}>
@@ -48,7 +48,7 @@ const SearchResultPage = ({
               variant="rounded"
               sx={{ width: 96, height: 96 }}
             />
-            <Box>
+            <Box sx={{ height: "160px" }}>
               <Typography variant="h6" fontWeight="bold">
                 {topTrack.name}
               </Typography>
@@ -169,7 +169,7 @@ const SearchResultPage = ({
           ))}
         </Box>
       </Box>
-    </Box>
+    </>
   );
 };
 

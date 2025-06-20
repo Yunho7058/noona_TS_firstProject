@@ -1,7 +1,7 @@
 import { useGetNewReleases } from "../../hooks/useGetNewReleases";
-import AlbumSection from "./components/AlbumSection";
+import AlbumSection from "./components/TrackSection";
 import NewReleases from "./components/NewReleases";
-import TrackSection from "./components/TrackSection";
+import TrackSection from "./components/ArtistSection";
 
 const HomePage = () => {
   const { data: newReleases, error, isLoading } = useGetNewReleases();
