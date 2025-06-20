@@ -1,10 +1,20 @@
-import { Box, styled, Typography } from "@mui/material";
-import React from "react";
+import {
+  BottomNavigation,
+  BottomNavigationAction,
+  Box,
+  Paper,
+  styled,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
+import React, { useEffect, useRef, useState } from "react";
 import {
   NavLink,
   NavLinkProps,
   Outlet,
   useLocation,
+  useNavigate,
   useParams,
 } from "react-router";
 import HomeIcon from "@mui/icons-material/Home";
@@ -13,7 +23,7 @@ import LibraryHead from "./components/LibraryHead";
 import EmptyPlaylist from "./components/EmptyPlaylist";
 import Library from "./components/Library";
 import Navbar from "./components/Navbar";
-
+import LibraryMusicIcon from "@mui/icons-material/LibraryMusic";
 // <Outlet /> 라우터 아래있는 라우트 다 가져옴
 
 const Layout = styled("div")(({ theme }) => ({
@@ -101,42 +111,126 @@ const ScrollContainer = styled(ContentBox)({
     backgroundColor: "transparent",
   },
 });
+const StyledBox = styled(Box)({
+  width: "100%",
+  height: "300px",
+  overflowY: "auto",
+  scrollBehavior: "smooth",
+  padding: "10px",
+
+  /* 스크롤바 커스터마이징 */
+  "&::-webkit-scrollbar": {
+    width: "6px",
+  },
+  "&::-webkit-scrollbar-thumb": {
+    backgroundColor: "#888",
+    borderRadius: "10px",
+  },
+  "&::-webkit-scrollbar-thumb:hover": {
+    backgroundColor: "#555",
+  },
+  "&::-webkit-scrollbar-track": {
+    backgroundColor: "transparent",
+  },
+});
 // home, search 클릭후 그 페이지에 있으면 , 버튼 흰색 유지하기
 const AppLayout = () => {
   const location = useLocation();
   const currentPath = location?.pathname;
+  const navigate = useNavigate();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const [value, setValue] = useState(0);
+  const [isLibraryMobile, setIsLibraryMobile] = useState(false);
   //console.log(currentPath);
+
   return (
-    <Layout>
-      <Sidebar>
+    <>
+      <Layout>
+        {isMobile ? (
+          <Paper
+            sx={{
+              position: "fixed",
+              bottom: 0,
+              left: 0,
+              right: 0,
+              zIndex: 100,
+              backgroundColor: "#111",
+            }}
+            elevation={3}
+          >
+            {isLibraryMobile && (
+              <StyledBox>
+                <LibraryHead />
+                <Library />
+              </StyledBox>
+            )}
+            <BottomNavigation
+              showLabels
+              value={value}
+              onChange={(event, newValue) => setValue(newValue)}
+              sx={{
+                backgroundColor: "#111",
+                height: "70px",
+                "& .Mui-selected": {
+                  color: "#fff",
+                },
+                "& .MuiBottomNavigationAction-root": {
+                  color: "#aaa",
+                },
+              }}
+            >
+              <BottomNavigationAction
+                label="Home"
+                icon={<HomeIcon />}
+                onClick={() => navigate("/")}
+              />
+              <BottomNavigationAction
+                label="Search"
+                icon={<SearchIcon />}
+                onClick={() => navigate("/search")}
+              />
+              <BottomNavigationAction
+                label="Your Library"
+                icon={<LibraryMusicIcon />}
+                onClick={() => setIsLibraryMobile(!isLibraryMobile)}
+              />
+            </BottomNavigation>
+          </Paper>
+        ) : (
+          <Sidebar>
+            <ContentBox>
+              <NavList>
+                <StyledNavLink to="/" currentPath={currentPath}>
+                  <HomeIcon />
+                  <Typography variant="h2" fontWeight={700}>
+                    Home
+                  </Typography>
+                </StyledNavLink>
+                <StyledNavLink to="/search" currentPath={currentPath}>
+                  <SearchIcon />
+                  <Typography variant="h2" fontWeight={700}>
+                    Search
+                  </Typography>
+                </StyledNavLink>
+              </NavList>
+            </ContentBox>
+            <ScrollContainer
+              sx={{ height: "100%", overflow: "auto", scrollBehavior: "" }}
+            >
+              <LibraryHead />
+              <Library />
+            </ScrollContainer>
+          </Sidebar>
+        )}
+
         <ContentBox>
-          <NavList>
-            <StyledNavLink to="/" currentPath={currentPath}>
-              <HomeIcon />
-              <Typography variant="h2" fontWeight={700}>
-                Home
-              </Typography>
-            </StyledNavLink>
-            <StyledNavLink to="/search" currentPath={currentPath}>
-              <SearchIcon />
-              <Typography variant="h2" fontWeight={700}>
-                Search
-              </Typography>
-            </StyledNavLink>
-          </NavList>
+          <Navbar />
+          <Outlet />
         </ContentBox>
-        <ScrollContainer
-          sx={{ height: "100%", overflow: "auto", scrollBehavior: "" }}
-        >
-          <LibraryHead />
-          <Library />
-        </ScrollContainer>
-      </Sidebar>
-      <ContentBox>
-        <Navbar />
-        <Outlet />
-      </ContentBox>
-    </Layout>
+      </Layout>
+      )
+    </>
   );
 };
 

@@ -26,13 +26,10 @@ export const getNewReleases = async (
 
 export const getAlbums = async (
   clientCredentialToken: string,
-  ids: string[]
+  id: string
 ): Promise<TGetAlbumsResponse> => {
   try {
-    const response = await axios.get(`${SPOTIFY_BASE_URL}/albums`, {
-      params: {
-        ids: ids.join(","),
-      },
+    const response = await axios.get(`${SPOTIFY_BASE_URL}/albums/${id}`, {
       headers: { Authorization: `Bearer ${clientCredentialToken}` },
     });
     return response.data;

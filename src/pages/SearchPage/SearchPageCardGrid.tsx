@@ -1,17 +1,15 @@
 import React from "react";
-import { Box, Typography, styled } from "@mui/material";
+import { Box, Card, Grid, Typography, styled } from "@mui/material";
 import { getRandomColor } from "../../common/components/util/getRandomColor";
 import useGetCategory from "../../hooks/useGetCategory";
 import LoadingSpinner from "../../common/components/util/LoadingSpinner";
 
-const GridContainer = styled(Box)({
-  display: "grid",
-  gridTemplateColumns: "repeat(3, 1fr)",
+const GridContainer = styled(Grid)({
   gap: "20px",
   padding: "20px",
 });
 
-const CategoryCard = styled(Box)<{ bgcolor: string }>`
+const CategoryCard = styled(Grid)<{ bgcolor: string }>`
   position: relative;
   background-color: ${({ bgcolor }) => bgcolor};
   border-radius: 12px;
@@ -40,9 +38,13 @@ const SearchPageCardGrid = () => {
     return <LoadingSpinner />;
   }
   return (
-    <GridContainer>
+    <GridContainer container spacing={3}>
       {data.categories.items.map((cat, idx) => (
-        <CategoryCard key={idx} bgcolor={getRandomColor()}>
+        <CategoryCard
+          key={idx}
+          bgcolor={getRandomColor()}
+          size={{ xs: 12, sm: 6, md: 4 }}
+        >
           <Typography variant="subtitle1" color="white" fontWeight="bold">
             {cat.name}
           </Typography>

@@ -2,15 +2,15 @@ import { useQuery } from "@tanstack/react-query";
 import { useClientCredentialToken } from "./useClientCredentialToken";
 import { getAlbums } from "../apis/albumApi";
 
-export const useGetAlbums = (ids: string[]) => {
+export const useGetAlbums = (id: string) => {
   const clientCredentialToken = useClientCredentialToken();
   return useQuery({
-    queryKey: ["all-albums"],
+    queryKey: ["all-albums", id],
     queryFn: async () => {
       if (!clientCredentialToken) {
         throw new Error("No token available");
       }
-      return getAlbums(clientCredentialToken, ids);
+      return getAlbums(clientCredentialToken, id);
     },
   });
 };
