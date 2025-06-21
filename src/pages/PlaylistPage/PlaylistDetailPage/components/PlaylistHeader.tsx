@@ -14,6 +14,10 @@ const ContentBox = styled(Box)(({ theme }) => ({
   flexDirection: "row",
   gap: "15px",
   overflow: "hidden",
+  [theme.breakpoints.down("sm")]: {
+    flexDirection: "column",
+    height: "auto",
+  },
 }));
 const StyledImage = styled("img")(({ theme }) => ({
   height: "100%",
@@ -22,6 +26,10 @@ const StyledImage = styled("img")(({ theme }) => ({
   objectFit: "cover",
   //flexShrink: 0,
   flex: 1,
+  [theme.breakpoints.down("sm")]: {
+    width: "100%",
+    height: "auto",
+  },
 }));
 const StlyedIconBox = styled(Box)(({ theme }) => ({
   flex: 1,
@@ -33,6 +41,11 @@ const StlyedIconBox = styled(Box)(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
+  [theme.breakpoints.down("sm")]: {
+    alignItems: "center",
+    textAlign: "center",
+    marginTop: theme.spacing(2),
+  },
 }));
 const InfoBox = styled(Box)({
   flex: 3,
