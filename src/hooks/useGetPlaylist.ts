@@ -12,22 +12,3 @@ export const useGetPlaylist = (params: TGetPlaylistRequest) => {
     enabled: !!params.playlist_id,
   });
 };
-
-// export const useGetPlaylist = (params: TGetPlaylistRequest) => {
-//   return useQuery<TPlaylistResponse, AxiosError>({
-//     queryKey: ["playlist-detail", params.playlist_id],
-//     queryFn: () => {
-//       return getPlaylist(params);
-//     },
-//     enabled: !!params.playlist_id,
-//   });
-// };
-// export const useGetPlaylist = (params: TGetPlaylistRequest) => {
-//   return useQuery<TPlaylistResponse, AxiosError>({
-//     queryKey: ["playlist-detail", params.playlist_id],
-//     queryFn: () => {
-//       return getPlaylist(params);
-//     },
-//     enabled: !!params.playlist_id,
-//   });
-// };

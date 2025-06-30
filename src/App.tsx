@@ -5,20 +5,9 @@ import LoadingSpinner from "./common/components/util/LoadingSpinner";
 import useExchangeToken from "./hooks/useExchangeToken";
 
 /*
-1. 홈 /
-2. 서치 /search
-3. 서치 결과 /search/:keyword
-4. 플레이리스트 디테일 페이지 /playlist/:id
-5. 플레이리스트 보여주는 페이지 (모바일때 모여줌) /playlist
-0. 사이드 바 생성 (플레이리스트, 메뉴)
+리팩토링 진행하기
+필요없느 파일 삭제, 모바일 버전 안전화
 
-리액트는 한페이지 안에서, 다른 컨텐츠 페이즈를 돌려가면서 보여줌
-
-페이지가 많으면 큰 부담이 있음
-그래서 사용하는 페이지만 로딩되게 lazy loading -> 초반에 빠르게 보여줌 , 번들 사이즈 작아짐
-단점은 홈페이지 보여주고 있다가 다른 페이지 갈때 시간이 좀 걸린다.
-그렇기 떄문에 로딩 처리 해주면 좋음
-<Suspense> 아직안왔으면 로딩 보여줄게
  */
 const AppLayout = React.lazy(() => import("./layout/AppLayout"));
 const HomePage = React.lazy(() => import("./pages/HomePage/HomePage"));
