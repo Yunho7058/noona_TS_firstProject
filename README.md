@@ -7,3 +7,4 @@ https://noona-ts-first-project-f99d.vercel.app
 2. 모바일 유아이 전면 수정하기
 3. 러딩 스패너 만들기
 4. 리펙토링 진행
+5. 빠르개 작성하기
