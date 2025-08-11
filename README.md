@@ -9,3 +9,4 @@ https://noona-ts-first-project-f99d.vercel.app
 4. 리펙토링 진행
 5. 빠르개 작성하
 6. 2일안에 리팩토링 완료하기
+7. 준비
